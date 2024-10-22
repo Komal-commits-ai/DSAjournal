@@ -37,6 +37,8 @@ public:
 	friend istream& operator >>(istream& in, String& str);
 	void trimRight();
 	void trim();
+        void reverse();
+        void substr();
 	/*void makeUpper();
 	void makeLower();
 	void reverse();
