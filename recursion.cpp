@@ -35,6 +35,51 @@ int fibonacco(int n)
 	}
 	return fibonacco(n - 1) + fibonacco(n - 2);
 }
+
+void reverseStr(String s)
+{
+	if (s.isEmpty())
+	{
+		return;
+	}
+	else
+	{
+		s.reverse();
+		cout << s[0];
+		s.substr();
+		s.reverse();
+		reverseStr(s);
+	}
+
+}
+
+int isX(String s)
+{
+	for (int i = s.getLength() - 1; i >= 0; i--)
+	{
+		if (s[i] != 'x')
+		{
+			for (int j = i; j >= 0; j--)
+			{
+				if (s[j] == 'x')
+				{
+					return j;
+				}
+			}
+		}
+	}
+	return -1;
+}
+
+String xAtEnd(String s)
+{
+	if (isX(s) == -1)
+	{
+		return s;
+	}
+	s.remove(isX(s));
+	return xAtEnd(s.concatenate('x'));
+}
 int main()
 {
 	cout << fibonacco(2);
