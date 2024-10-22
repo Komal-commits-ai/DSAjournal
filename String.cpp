@@ -470,3 +470,35 @@ void String::trim()
 	this->trimLeft();
 	this->trimRight();
 }
+void String::reverse()
+{
+	String a(size);
+	int j = 0;
+	for (int i = size - 1; i >= 0; i--)
+	{
+		a[j] = data[i];
+		j++;
+	}
+	for (int i = 0; i <size; i++)
+	{
+		data[i] =a[i];
+	}
+}
+
+void String::substr()
+{
+	if (this->isEmpty())
+	{
+		return;
+	}
+	else
+	{
+		for (int i = 1; i < size; i++)
+		{
+			data[i - 1] = data[i];
+		}
+		data[size - 1] = '\0';
+		size--;
+	}
+}
+
