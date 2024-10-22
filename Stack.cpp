@@ -60,7 +60,7 @@ void Stack<T>:: push(T item)
 	}
 }
 template <typename T>
-int Stack<T>:: pop()
+T Stack<T>:: pop()
 	{
 		if (!isEmpty())
 		{
