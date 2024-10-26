@@ -115,7 +115,7 @@ void Queue<T>::display()
 }
 
 template <typename T>
-T Queue<T>::DeQueue()
+T Queue<T>::ShiftedQueue()
 {
 	if (isEmpty())
 	{
