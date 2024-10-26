@@ -472,19 +472,24 @@ void String::trim()
 }
 void String::reverse()
 {
-	String a(size);
-	int j = 0;
-	for (int i = size - 1; i >= 0; i--)
+	int j = this->getLength()-1;
+	for (int i = 0; i < this->getLength() / 2; i++)
 	{
-		a[j] = data[i];
-		j++;
+		swap(data[i], data[j]);
+		j--;
 	}
-	for (int i = 0; i <size; i++)
+	for (int i = 0; i <= this->getLength(); i++)
 	{
-		data[i] =a[i];
+		if (data[i] == '(')
+		{
+			data[i] = ')';
+		}
+		else if (data[i] == ')')
+		{
+			data[i] = '(';
+		}
 	}
 }
-
 void String::substr()
 {
 	if (this->isEmpty())
