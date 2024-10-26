@@ -81,6 +81,17 @@ bool isOperator(char c) {
 bool isalnum(char c) {
     return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9');
 }
+int revNumber(int  num)
+{
+    int reversedNum = 0;
+    while (num != 0) 
+    {
+        int digit = num % 10;
+        reversedNum = reversedNum * 10 + digit;
+        num /= 10;
+    }
+    return reversedNum;
+}
 String postFix(String str)
 {
     int n = 0;
@@ -98,6 +109,7 @@ String postFix(String str)
                 postF[n] = postF[n] * 10;
                 postF[n] = postF[n] + str[i] - '0';
             }
+            postF[n]=revNumber(postF[n]);
             n++;
             postF[n] = '.';
             n++;
