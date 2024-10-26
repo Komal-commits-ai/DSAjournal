@@ -18,7 +18,7 @@ public:
 	T deQueue();
 	T showFront();
 	void display();
-	T DeQueue();
+	T ShiftedQueue();
 
 };
 #endif
