@@ -1,166 +1,110 @@
 #include <iostream>
 using namespace std;
-
-class Node {
+class Hash
+{
+	int* list;
+	int* index;
+	int i;
+	int size;
 public:
-    int data;
-    Node* next;
-    Node* prev;
-
-    Node(int e, Node* n = nullptr, Node* p = nullptr) {
-        data = e;
-        next = n;
-        prev = p;
-    }
-
-    void display(Node* ptr) {
-        while (ptr != nullptr) {
-            cout << ptr->data << " ";
-            ptr = ptr->next;
-        }
-        cout << endl;
-    }
+	Hash()
+	{
+		list = nullptr;
+		index = nullptr;
+		i = 0;
+		size = 0;;
+	}
+	Hash(int n)
+	{
+		list = new int[n];
+		index = new int[n];
+		i = 0;
+		size = n;
+	}
+	void hash(int n)
+	{
+		for (int k = 0; k <= i; k++)
+		{
+			if (list[k] == n)
+			{
+				cout << index[k]<<'\n';
+			}
+		}
+	}
+	bool findindex(int n)
+	{
+		for (int k = 0; k < i; k++)
+		{
+			if (index[k] == n)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	void insert(int n)
+	{
+		if (size == i-1)
+		{
+			this->resize();
+		}
+		list[i] = n;
+		int result = 0;
+		while (n!= 0)
+		{
+			result = result + (n% 10);
+			n= n/ 10;
+		}
+		int in = result % 10;
+		int k = 1;
+		int l = in;
+		while (findindex(in) == 1)
+		{
+			int m = k * k;
+			in = l + m;
+			k++;
+		}
+		index[i] = in;
+		i++;
+	}
+	void resize()
+	{
+		int* list1 = new int[size*size];
+		int* index1 = new int[size*size];
+		for (int k = 0; k <= i; k++)
+		{
+			list1[k] = list[k];
+		}
+		for (int k = 0; k <= i; k++)
+		{
+			index1[k] = index[k];
+		}
+		size = size * size;
+		list = list1;
+		index = index1;
+		delete[]list1;
+		delete[]index1;
+	}
+	void display()
+	{
+		for (int k = 0; k <= i-1; k++)
+		{
+			cout << list[k] << ":" << index[k] << '\n';
+		}
+	}
 };
-
-class LinkList {
-    Node* head;
-    Node* tail;
-
-public:
-    LinkList() {
-        head = tail = nullptr;
-    }
-
-    bool isEmpty() {
-        return head == nullptr;
-    }
-
-    void addToHead(int ele) {
-        Node* newNode = new Node(ele, head);
-        if (head != nullptr) {
-            head->prev = newNode;
-        }
-        head = newNode;
-        if (tail == nullptr) {
-            tail = head;
-        }
-    }
-
-    void addToTail(int e) {
-        Node* newNode = new Node(e, nullptr, tail);
-        if (isEmpty()) {
-            head = tail = newNode;
-        }
-        else {
-            tail->next = newNode;
-            tail = newNode;
-        }
-    }
-
-    void displayFromHead() {
-        Node* temp = head;
-        while (temp != nullptr) {
-            cout << temp->data << " ";
-            temp = temp->next;
-        }
-        cout << endl;
-    }
-
-    void displayFromTail() {
-        Node* temp = tail;
-        while (temp != nullptr) {
-            cout << temp->data << " ";
-            temp = temp->prev;
-        }
-        cout << endl;
-    }
-
-    int deleteFromHead() {
-        if (isEmpty()) {
-            cout << "List is empty" << endl;
-            return -1;
-        }
-        int e = head->data;
-        Node* temp = head;
-        if (head == tail) {
-            head = tail = nullptr;
-        }
-        else {
-            head = head->next;
-            head->prev = nullptr;
-        }
-        delete temp;
-        return e;
-    }
-
-    int deleteFromTail() {
-        if (isEmpty()) {
-            cout << "List is empty" << endl;
-            return -1;
-        }
-        int e = tail->data;
-        Node* temp = tail;
-        if (head == tail) {
-            head = tail = nullptr;
-        }
-        else {
-            tail = tail->prev;
-            tail->next = nullptr;
-        }
-        delete temp;
-        return e;
-    }
-
-    void deleteNode(int e) {
-        if (isEmpty()) {
-            cout << "List is empty" << endl;
-            return;
-        }
-        if (head->data == e) {
-            deleteFromHead();
-            return;
-        }
-        if (tail->data == e) {
-            deleteFromTail();
-            return;
-        }
-        Node* temp = head;
-        while (temp != nullptr && temp->data != e) {
-            temp = temp->next;
-        }
-        if (temp == nullptr) {
-            cout << "Node not found" << endl;
-            return;
-        }
-        temp->prev->next = temp->next;
-        if (temp->next != nullptr) {
-            temp->next->prev = temp->prev;
-        }
-        delete temp;
-    }
-
-    ~LinkList() {
-        while (!isEmpty()) {
-            deleteFromHead();
-        }
-    }
-};
-
-int main() {
-    LinkList list;
-    list.addToHead(1);
-    list.addToHead(2);
-    list.addToTail(3);
-    list.addToTail(4);
-    list.displayFromHead();  // Should display: 2 1 3 4
-    list.displayFromTail();  // Should display: 4 3 1 2
-    list.deleteFromHead();
-    list.displayFromHead();  // Should display: 1 3 4
-    list.deleteFromTail();
-    list.displayFromHead();  // Should display: 1 3
-    list.deleteNode(3);
-    list.displayFromHead();  // Should display: 1
-    list.deleteNode(10);     // Node not found
-    list.displayFromHead();  // Should display: 1
-    return 0;
+int main()
+{
+	Hash a(10);
+	a.insert(12);
+	a.insert(13);
+	a.insert(15);
+	a.insert(16);
+	a.insert(17);
+	a.insert(18);
+	a.insert(19);
+	a.insert(23);
+	a.insert(21);
+	a.display();
+	a.hash(15);
 }
